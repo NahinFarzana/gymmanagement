@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Services
+{% endblock title %}
+
+{% block body %}
+<div class="container mt-2">
+    <center><h1>Our Packages</h1></center>
+    <div class="row">
+        {% for service in services %}  
+        <div class="col-md-4">
+            <div class="card">
+                {% if service.img %}
+                <img src="{{ service.img.url }}" class="card-img-top" alt="...">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ service.title }}</h5>
+                    <p class="card-text">{{ service.description }}</p>
+                    <p class="card-text">Fee:{{ service.fee }} Tk</p>
+                    <p class="card-text">Starts From: {{ service.starts_from }}</p>
+                    <p class="card-text">Ends On: {{ service.ends_on }}</p>
+                    <a href="#" class="btn btn-primary">Enroll</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

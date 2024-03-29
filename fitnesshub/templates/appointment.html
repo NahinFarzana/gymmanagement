@@ -1,0 +1,125 @@
+{% extends 'base.html' %} 
+{% block title %} Book Appointment {% endblock title%}
+{% block head %}
+
+<h1>Book Appointment</h1>
+    
+
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+      {% for message in messages %}
+      <div
+        class="alert alert-{{message.tags}} alert-dismissible fade show"
+        role="alert"
+      >
+        <strong></strong> {{message}}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %} 
+
+      <form action="/appointment" method="post">{% csrf_token %}
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <input
+              type="text"
+              class="form-control mt-2"
+              name="full_name"
+              placeholder="Full Name"
+              required
+            />
+          </div>
+
+        <div class="form-group">
+            <input
+              type="text"
+              class="form-control mt-2"
+              name="PhoneNumber"
+              placeholder="Phone Number"
+              required
+            />
+          </div>
+          
+        <div class="form-group">
+          <label for="workout" class="text-white">Date and Time</label>
+          <input
+            type="datetime-local"
+            class="form-control mt-2"
+            name="workout"
+            id="workout"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+            <label for="trainer" class="text-white">Select Trainer</label>
+            <select class="form-control mt-2" id="trainer" name="trainer" required>
+                <option selected disabled>Select Trainer</option>
+                {% for trainer in SelectTrainer %}
+                    <option value="{{ trainer.id }}">{{ trainer.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="duration" class="text-white">Duration</label>
+            <select class="form-control mt-2" id="duration" name="duration" required>
+                <option selected disabled>Select Duration</option>
+                <option value="60">1 hour</option> <!-- 60 minutes in 1 hour -->
+                <option value="120">2 hours</option> <!-- 120 minutes in 2 hours -->
+                <option value="180">3 hours</option> <!-- 180 minutes in 3 hours -->
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+        
+
+        <div class="form-group">
+            <label for="appointment_type" class="text-white">Appointment Type</label>
+            <select class="form-control mt-2" id="appointment_type" name="appointment_type" required>
+                <option selected disabled>Select Appointment Type</option>
+                <option value="Regular">Regular</option>
+                <option value="Consultation">Consultation</option>
+                <option value="Training Session">Training Session</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+        
+
+        <div class="form-group">
+            <label for="status" class="text-white">Status</label>
+            <select class="form-control mt-2" id="status" name="status" required>
+                <option selected disabled>Select Status</option>
+                <option value="Scheduled">Scheduled</option>
+                <option value="Cancelled">Cancelled</option>
+                <option value="Completed">Completed</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+        
+
+        <div class="form-group">
+            <label for="notes" class="text-white">Notes</label>
+            <textarea class="form-control mt-2" name="notes" id="notes" placeholder="Notes"></textarea>
+        </div>
+
+
+        <br />
+        <div class="d-grid gap-2">
+          <button class="btn btn-warning" type="submit">Book Appointment</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+{% endblock head %}

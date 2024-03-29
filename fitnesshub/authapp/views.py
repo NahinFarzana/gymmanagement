@@ -2,13 +2,28 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
-from authapp.models import Contact,MembershipPlan,Trainer,Enrollment
+from authapp.models import Contact,MembershipPlan,Trainer,Enrollment,Equipments,Attendance,Service,Appointment
+from datetime import timedelta
 
 
 # Create your views here.
 
 def Home(request):
     return render(request,"index.html")
+
+def profile(request):
+    if not request.user.is_authenticated:
+        messages.warning(request,"Please Login and Try Again")
+        return redirect('/login')
+    user_phone=request.user
+    posts=Enrollment.objects.filter(PhoneNumber=user_phone)
+    attendance=Attendance.objects.filter(phonenumber=user_phone)
+    print(posts)
+    context={"posts":posts,"attendance":attendance}
+    return render(request,"profile.html",context)
+    #return render(request,"profile.html")
+ 
+
 
 def signup(request):
     if request.method=="POST":
@@ -110,7 +125,57 @@ def enroll(request):
         query.save()
         messages.success(request,"Thanks For Enrolling")
         return redirect('/join')
-
-
-
     return render(request,"enroll.html",context)
+
+
+def equipments(request):
+    posts=Equipments.objects.all()
+    context={"posts":posts}
+    return render(request,"equipments.html",context)
+
+
+def attendance(request):
+    if not request.user.is_authenticated:
+        messages.warning(request,"Please Login and Try Again")
+        return redirect('/login')
+    SelectTrainer=Trainer.objects.all()
+    context={"SelectTrainer":SelectTrainer}
+    if request.method=="POST":
+        phonenumber=request.POST.get('PhoneNumber')
+        Login=request.POST.get('logintime')
+        Logout=request.POST.get('loginout')
+        SelectWorkout=request.POST.get('workout')
+        TrainedBy=request.POST.get('trainer')
+        query=Attendance(phonenumber=phonenumber,Login=Login,Logout=Logout,SelectWorkout=SelectWorkout,TrainedBy=TrainedBy)
+        query.save()
+        messages.warning(request,"Attendance Applied Successfully")
+        return redirect('/attendance')
+    return render(request,"attendance.html",context)
+
+
+def service(request):
+    services=Service.objects.all()
+    context={"services":services}
+    return render(request,"service.html",context)
+
+
+def appointment(request):
+    SelectTrainer=Trainer.objects.all()
+    context={"SelectTrainer":SelectTrainer}
+    if request.method=="POST":
+        full_name=request.POST.get('full_name')
+        user_phone=request.POST.get('PhoneNumber')
+        trainer=request.POST.get('trainer')
+        date_and_time=request.POST.get('workout')
+        duration_minutes = int(request.POST.get('duration'))
+        appointment_type=request.POST.get('appointment_type')
+        status=request.POST.get('status')
+        notes =request.POST.get('notes')
+
+         # Convert duration to timedelta object
+        duration = timedelta(minutes=duration_minutes)
+        query=Appointment(full_name=full_name,user_phone=user_phone,trainer=trainer,date_and_time=date_and_time,duration=duration,appointment_type=appointment_type,status=status,notes=notes )
+        query.save()
+        messages.warning(request,"Appointment Booked Successfully")
+        return redirect('/appointment')
+    return render(request,"appointment.html",context)

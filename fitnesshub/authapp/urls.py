@@ -8,4 +8,12 @@ urlpatterns = [
     path('logout',views.handleLogout,name="handleLogout"),
     path('contact',views.contact,name="contact"),
     path('join',views.enroll,name="enroll"),
+    path('profile',views.profile,name="profile"),
+    path('equipments',views.equipments,name="equipments"),
+    path('attendance',views.attendance,name="attendance"),
+    path('service',views.service,name="service"),
+    path('appointment',views.appointment,name="appointment"),
+
+
+    
 ]
