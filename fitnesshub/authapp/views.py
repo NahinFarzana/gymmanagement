@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
-from authapp.models import Contact,MembershipPlan,Trainer,Enrollment,Equipments,Attendance,Service,Appointment
+from authapp.models import Contact,MembershipPlan,Trainer,Enrollment,Equipments,Attendance,Service,Appointment,Payment
 from datetime import timedelta
 
 
@@ -179,3 +179,10 @@ def appointment(request):
         messages.warning(request,"Appointment Booked Successfully")
         return redirect('/appointment')
     return render(request,"appointment.html",context)
+
+
+def payment_page(request):
+    product_id = request.GET.get('product_id')
+    price = request.GET.get('price')
+    print("Price:", price)  # Add this line for debugging
+    return render(request, 'payment.html', {'price': price})

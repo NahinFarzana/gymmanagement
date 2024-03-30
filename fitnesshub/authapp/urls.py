@@ -13,6 +13,7 @@ urlpatterns = [
     path('attendance',views.attendance,name="attendance"),
     path('service',views.service,name="service"),
     path('appointment',views.appointment,name="appointment"),
+    path('payment/', views.payment_page, name='payment_page'),
 
 
     
