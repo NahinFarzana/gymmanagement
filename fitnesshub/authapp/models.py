@@ -91,17 +91,13 @@ class Appointment(models.Model):
     appointment_type = models.CharField(max_length=100)
     status = models.CharField(max_length=20)
     notes = models.TextField(blank=True)
-    
-   
-from django.contrib.auth.models import User
 
+
+import datetime
 class Payment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    equipment = models.ForeignKey(Equipments, on_delete=models.CASCADE)
-    method = models.CharField(max_length=50)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Payment for {self.equipment.title} by {self.user.username}"
+    card_number = models.CharField(max_length=16, null=True)
+    expiry_date = models.DateField(default=datetime.date.today)
+    cvv = models.CharField(max_length=4,null=True)
+    name_on_card = models.CharField(max_length=100, default='Visa')  # Default value is set to 'Visa'
+    amount = models.DecimalField(max_digits=10, decimal_places=2,default=0)  
 

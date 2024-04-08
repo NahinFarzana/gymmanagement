@@ -19,7 +19,7 @@ Equipments
           <h5 class="card-title">{{post.title}}</h5>
           <p class="card-text">Price: {{ post.price }}Tk</p>
           <p class="card-text">Uploaded On : {{post.timeStamp}} </p>
-          <a href="{% url 'payment_page' %}?product_id={{post.id}}&price={{post.price}}" class="btn btn-primary">Buy Now</a>
+          <a href="{% url 'payment' %}?product_id={{post.id}}&price={{post.price}}" class="btn btn-primary">Buy Now</a>
 
         </div>
       </div>

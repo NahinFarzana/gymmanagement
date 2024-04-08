@@ -181,8 +181,63 @@ def appointment(request):
     return render(request,"appointment.html",context)
 
 
-def payment_page(request):
-    product_id = request.GET.get('product_id')
-    price = request.GET.get('price')
-    print("Price:", price)  # Add this line for debugging
+def payment(request):
+    price = request.GET.get('price')  # Get the price from URL parameters
+    if request.method == 'POST':
+        card_number = request.POST.get('card_number')
+        expiry_date = request.POST.get('expiry_date')
+        cvv = request.POST.get('cvv')
+        name_on_card = request.POST.get('name_on_card')
+        amount = request.POST.get('amount')  # Assuming amount is also submitted in the form
+
+        # Assuming you need to convert amount to DecimalField
+        # You might need to import Decimal from decimal module
+        # amount = Decimal(amount)
+
+        # You can directly create and save the Payment object
+        payment = Payment(
+            card_number=card_number,
+            expiry_date=expiry_date,
+            cvv=cvv,
+            name_on_card=name_on_card,
+            amount=amount
+        )
+        payment.save()
+
+        messages.success(request, 'Your payment is successful')
+        return redirect('/payment')  # Redirect to a success page
+
+    # Render the payment form template if it's a GET request
     return render(request, 'payment.html', {'price': price})
+
+
+def calculate_bmi(request):
+    if request.method == 'POST':
+        weight = float(request.POST.get('weight'))
+        height = float(request.POST.get('height'))
+
+        # Calculate BMI
+        bmi = calculate_bmi_value(weight, height)
+
+        # Determine BMI category
+        bmi_category = determine_bmi_category(bmi)
+
+        return render(request, 'bmi_result.html',{'bmi': bmi,'bmi_category': bmi_category})
+
+    return render(request, 'calculate_bmi.html')
+
+
+def calculate_bmi_value(weight, height):
+    # Formula: BMI = weight (kg) / (height (m))^2
+    return round(weight / ((height / 100) ** 2), 2)
+
+
+def determine_bmi_category(bmi):
+    if bmi < 18.5:
+        return 'Underweight'
+    elif 18.5 <= bmi < 25:
+        return 'Normal weight'
+    elif 25 <= bmi < 30:
+        return 'Overweight'
+    else:
+        return 'Obese'

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}
+BMI Result
+{% endblock title %}
+{% block head %}
+
+<style>
+    /* Add custom CSS to increase font size */
+    .card-title,
+    .card-text,
+    .card-category {
+        font-size: 1.2em; /* Adjust the font size as needed */
+    }
+
+    /* Custom styling for the diet chart */
+    .diet-chart {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 10px;
+    }
+</style>
+
+<h1>BMI Result</h1>
+
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <strong></strong> {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">BMI Calculation Result</h5>
+                    <p class="card-text">Your BMI is: {{ bmi }}</p>
+                    <p class="card-category">BMI Category: {{ bmi_category }}</p> <!-- Added a class for BMI Category -->
+                    <button type="button" class="btn btn-primary" onclick="requestDietChart('{{ bmi_category }}')">Request for Diet Chart</button> <!-- Pass BMI category as argument -->
+                    <div id="dietChartContainer" class="diet-chart"></div> <!-- Container for displaying the diet chart -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+<script>
+    function requestDietChart(bmiCategory) {
+        // Define diet plans for each BMI category
+        var dietCharts = {
+            'Underweight': 'underweight_diet_chart.html',
+            'Normal weight': 'normal_diet_chart.html',
+            'Overweight': 'overweight_diet_chart.html',
+            'Obese': 'obese_diet_chart.html'
+        };
+
+        // Retrieve diet chart based on BMI category
+        var dietChartPage = dietCharts[bmiCategory];
+
+        // Display the diet chart to the user
+        window.location.href = dietChartPage;
+    }
+</script>
+
+{% endblock head %}

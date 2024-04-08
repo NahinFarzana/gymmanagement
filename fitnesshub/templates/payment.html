@@ -1,76 +1,106 @@
-{% extends 'base.html' %}
-{% block title %}
-Make Payment
-{% endblock title %}
-{% block head %}
-<h1>Payment Page</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-photo/3d-gym-equipment_23-2151114163.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
+        .container {
+            margin-top: 100px; /* Adjust this value to position the form vertically */
+        }
 
-<div class="container mt-2">
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+            backdrop-filter: blur(5px); /* Blurred background */
+            border-radius: 10px;
+        }
 
-    <div class="row">
-    
-    <div class="col-md-3"> </div>
-    
-    <div class="col-md-6">
-    
-    
-    {% for message in messages %}
-    <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
-      <strong></strong> {{message}}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        .card-header {
+            background-color: transparent;
+            border-bottom: none;
+        }
+
+        .form-control {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+  
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h1>Payment Form</h1>
+                </div>
+                <div class="card-body">
+                  {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endfor %}
+
+                    <form action="{% url 'payment' %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="card_number">Card Number</label>
+                            <input type="text" class="form-control" name="card_number" placeholder="Enter Card Number" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="expiry_date">Expiry Date</label>
+                            <input type="date" class="form-control" id="expiry_date" name="expiry_date" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" class="form-control" name="cvv" placeholder="Enter CVV" required>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="name_on_card">Name on Card</label>
+                          <select class="form-control" id="name_on_card" name="name_on_card" required>
+                              <option value="">Select Name on Card</option>
+                              <option value="Visa">Visa</option>
+                              <option value="Mastercard">Mastercard</option>
+                          </select>
+                        </div>
+                      
+                        
+                        <div class="form-group">
+                          <label for="amount">Amount</label>
+                          <input type="text" class="form-control" name="amount" placeholder="Enter Amount" required>
+                        </div>
+                      
+                        <!-- Dynamic Equipment Price -->
+                        <p><strong>Equipment Price:</strong> {{ price }} Tk</p>
+                        <!-- Hidden input field for price -->
+                        
+                        <div class="text-center">
+                            <button class="btn btn-primary" type="submit">Pay Now</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    {% endfor %}
-    
-    {% comment %} Payment Form Code  {% endcomment %}
-   
-    <form action="/payment" method="post">{% csrf_token %}
+</div>
 
-
-        <div class="form-group">
-        <label for="card_number">Card Number</label>
-        <input type="text" class="form-control" name="card_number" placeholder="Enter Card Number" required>
-        </div>
-        
-        
-        <div class="form-group">
-        <label for="expiry_date">Expiry Date</label>
-        <input type="text" class="form-control mt-2" name="expiry_date" placeholder="Enter Expiry Date" required>
-        </div>
-        
-        <div class="form-group">
-        <label for="cvv">CVV</label>
-        <input type="text" class="form-control mt-2" name="cvv" placeholder="Enter CVV" required>
-        </div>
-        
-        <div class="form-group">
-        <label for="name_on_card">Name on Card</label>
-        <input type="text" class="form-control mt-2" name="name_on_card" placeholder="Enter Name on Card" required>
-        </div>
-
-        <!-- Dynamic Equipment Price -->
-        <p class="card-text"><strong>Equipment Price:</strong> {{ price }} Tk</p>
-        
-        <br>
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary" type="submit">Pay Now</button>
-        
-        </div>
-        
-        </form>
-        
-    
-    
-    </div>
-    
-    <div class="col-md-3"></div>
-    
-    </div>
-    
-    
-    
-    </div>
-
-
-
-{% endblock head %}
+</body>
+</html>

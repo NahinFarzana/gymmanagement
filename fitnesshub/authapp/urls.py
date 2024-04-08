@@ -13,7 +13,8 @@ urlpatterns = [
     path('attendance',views.attendance,name="attendance"),
     path('service',views.service,name="service"),
     path('appointment',views.appointment,name="appointment"),
-    path('payment/', views.payment_page, name='payment_page'),
+    path('payment/', views.payment, name='payment'),
+    path('calculate_bmi',views.calculate_bmi,name='calculate_bmi')
 
 
     
