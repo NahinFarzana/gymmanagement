@@ -1,3 +1,5 @@
+<!-- services.html -->
+
 {% extends 'base.html' %}
 
 {% block title %}
@@ -20,7 +22,8 @@ Services
                     <p class="card-text">Fee:{{ service.fee }} Tk</p>
                     <p class="card-text">Starts From: {{ service.starts_from }}</p>
                     <p class="card-text">Ends On: {{ service.ends_on }}</p>
-                    <a href="#" class="btn btn-primary">Enroll</a>
+                    <a href="{% url 'register' service.id %}" class="btn btn-primary">Register Now</a>
+
                 </div>
             </div>
         </div>

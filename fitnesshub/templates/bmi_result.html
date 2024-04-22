@@ -34,7 +34,7 @@ BMI Result
             {% endfor %}
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">BMI Calculation Result</h5>
+                    <h5 class="card-title">BMI Calculation Result </h5>
                     <p class="card-text">Your BMI is: {{ bmi }}</p>
                     <p class="card-category">BMI Category: {{ bmi_category }}</p> <!-- Added a class for BMI Category -->
                     <button type="button" class="btn btn-primary" onclick="requestDietChart('{{ bmi_category }}')">Request for Diet Chart</button> <!-- Pass BMI category as argument -->
@@ -49,17 +49,18 @@ BMI Result
 <script>
     function requestDietChart(bmiCategory) {
         // Define diet plans for each BMI category
+        // Define the path to each diet chart HTML file
         var dietCharts = {
-            'Underweight': 'underweight_diet_chart.html',
-            'Normal weight': 'normal_diet_chart.html',
-            'Overweight': 'overweight_diet_chart.html',
-            'Obese': 'obese_diet_chart.html'
+        'Underweight': '/underweight-diet-chart/',
+        'Normal weight': '/normal-diet-chart/',
+        'Overweight': '/overweight-diet-chart/',
+        'Obese': '/obese-diet-chart/'
         };
 
-        // Retrieve diet chart based on BMI category
+        // Retrieve the path to the diet chart HTML file based on BMI category
         var dietChartPage = dietCharts[bmiCategory];
 
-        // Display the diet chart to the user
+        // Redirect the user to the corresponding diet chart HTML page
         window.location.href = dietChartPage;
     }
 </script>

@@ -90,7 +90,6 @@ class Appointment(models.Model):
     duration = models.DurationField()
     appointment_type = models.CharField(max_length=100)
     status = models.CharField(max_length=20)
-    notes = models.TextField(blank=True)
 
 
 import datetime

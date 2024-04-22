@@ -31,24 +31,13 @@ Profile
         <li class="list-group-item bg-warning text-dark"><h5>Payment Status : {{post.paymentStatus}}</h5></li>
         <li class="list-group-item bg-warning text-dark"><h5>Amount Paid : {{post.Price}}</h5></li>
         <li class="list-group-item bg-warning text-dark"><h5>Upcoming Due Date : {{post.DueDate}}</h5></li>
-        <li class="list-group-item bg-warning text-dark"><h5>Joining date : {{post.timeStamp}}</h5></li>
-      
-       
+        <li class="list-group-item bg-warning text-dark"><h5>Joining date : {{post.timeStamp}}</h5></li>      
       </ul>
       {% endfor %}
-    
-    
-    
-    
-    </div>
-    
-    <div class="col-md-8">
-
-
-      <div><Center><h2 class="display-4 mt-3"><b>Attendance Data</b></h2></Center></div>
-
-  
       
+    </div>  
+    <div class="col-md-8">
+      <div><Center><h2 class="display-4 mt-3"><b>Attendance Data</b></h2></Center></div>      
       <table class="table">
         <thead class="thead-warning">
           <tr>
@@ -69,28 +58,14 @@ Profile
             <td>{{attend.Login}}</td>
             <td>{{attend.Logout}}</td>
             <td>{{attend.SelectWorkout}}</td>
-            <td>{{attend.TrainedBy}}</td>
-            
-           
-         
-            
+            <td>{{attend.TrainedBy}}</td>            
            
           </tr>
           {% endfor %}
         
         </tbody>
-      </table>
+      </table>   
     
-    
+    </div>      
     </div>
-    
-    
-    
-    
-    
-    </div>
-
-
-
-
 {% endblock body %}

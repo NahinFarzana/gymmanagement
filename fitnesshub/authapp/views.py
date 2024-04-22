@@ -29,7 +29,6 @@ def signup(request):
     if request.method=="POST":
         username=request.POST.get('usernumber')
         first_name=request.POST.get("first_name")
-        middle_name=request.POST.get("middle_name")
         last_name=request.POST.get("last_name")
         email=request.POST.get('email')
         pass1=request.POST.get('pass1')
@@ -49,18 +48,14 @@ def signup(request):
                 return redirect('/signup')
            
         except Exception as identifier:
-            pass
-        
-        
+            pass       
         try:
             if User.objects.get(email=email):
                 messages.warning(request,"Email is Taken")
                 return redirect('/signup')
            
         except Exception as identifier:
-            pass
-        
-         
+            pass        
         myuser=User.objects.create_user(username,email,pass1)
         myuser.first_name = first_name
         #myuser.middle_name = middle_name
@@ -170,11 +165,10 @@ def appointment(request):
         duration_minutes = int(request.POST.get('duration'))
         appointment_type=request.POST.get('appointment_type')
         status=request.POST.get('status')
-        notes =request.POST.get('notes')
 
          # Convert duration to timedelta object
         duration = timedelta(minutes=duration_minutes)
-        query=Appointment(full_name=full_name,user_phone=user_phone,trainer=trainer,date_and_time=date_and_time,duration=duration,appointment_type=appointment_type,status=status,notes=notes )
+        query=Appointment(full_name=full_name,user_phone=user_phone,trainer=trainer,date_and_time=date_and_time,duration=duration,appointment_type=appointment_type,status=status )
         query.save()
         messages.warning(request,"Appointment Booked Successfully")
         return redirect('/appointment')
@@ -241,3 +235,30 @@ def determine_bmi_category(bmi):
         return 'Overweight'
     else:
         return 'Obese'
+    
+def underweight_diet_chart_view(request):
+    # Add your view logic here
+    return render(request, 'underweight_diet_chart.html')
+
+def normal_diet_chart_view(request):
+    # Add your view logic here
+    return render(request, 'normal_diet_chart.html')
+
+def overweight_diet_chart_view(request):
+    # Add your view logic here
+    return render(request, 'overweight_diet_chart.html')
+
+def obese_diet_chart_view(request):
+    # Add your view logic here
+    return render(request, 'obese_diet_chart.html')
+
+
+
+
+def register(request, service_id):
+    service = Service.objects.get(pk=service_id)
+    context = {
+        'service': service,
+    }
+    return render(request, 'register.html', context)
+

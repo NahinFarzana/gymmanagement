@@ -4,12 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obese Diet Chart</title>
-    <!-- Add any additional CSS or meta tags here -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://img.freepik.com/free-photo/3d-gym-equipment_23-2151114163.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .container {
+            margin-top: 50px; /* Adjust this value to position the content vertically */
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+            backdrop-filter: blur(5px); /* Blurred background */
+            border-radius: 10px;
+            width: 120%; /* Adjust the width of the card */
+            max-width: 800px; /* Set maximum width for larger screens */
+            margin: auto; /* Center the card horizontally */
+        }
+
+        .card-header {
+            background-color: transparent;
+            border-bottom: none;
+        }
+
+        .card-body {
+            text-align: center; /* Center the content */
+        }
+
+        .diet-chart-image {
+            width: 100%; /* Adjust the width to 100% of the card */
+            height: auto; /* Maintain aspect ratio */
+            max-height: 120vh; /* Set maximum height to 80% of viewport height */
+            margin: auto; /* Center the image horizontally */
+            display: block; /* Center the image horizontally */
+        }
+    </style>
 </head>
 <body>
-    <h1>Obese Diet Chart</h1>
-    <!-- Add the diet chart content here -->
-    <img src="obese_diet_chart.jpg" alt="Obese Diet Chart">
-    <!-- Replace "obese_diet_chart.jpg" with the actual path to your obese diet chart image -->
+  
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h1>Obese Diet Chart</h1>
+                </div>
+                <div class="card-body">
+                    <!-- Add your diet chart content here -->
+                    <!-- Example: -->
+                    <img src="https://areyoulevelthree.weebly.com/uploads/4/8/6/9/48690587/9824951_orig.png" alt="Obese Diet Chart" class="diet-chart-image">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

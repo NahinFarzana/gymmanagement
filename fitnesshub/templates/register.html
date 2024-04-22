@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollment Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/id/1391410249/tr/foto%C4%9Fraf/sports-and-gym-activities.jpg?s=612x612&w=0&k=20&c=vGL7qgCJgT6iIs8_8VIa4bZTC5HgfCCmOKFaFI_946s=');
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 100vh; /* Ensure full viewport height */
+            margin: 0; /* Remove default margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gradient-form {
+            background-color: rgba(255, 255, 255, 0.5); /* Slightly transparent background */
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-submit {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+  
+<div class="container mt-2">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="gradient-form">
+                <h1 class="text-center">Registration Form</h1>
+                {% if service %}
+                <h3>Service: {{ service.title }}</h3>
+                <h3>Fee: {{ service.fee }} Tk</h3>
+                {% endif %}
+                <form id="paymentForm" method="post" action="{% url 'register' service.id %}">
+                    {% csrf_token %}
+                    <!-- Add form fields for payment -->
+                    <div class="form-group">
+                        <label class="form-label" for="cardNumber">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Enter Card Number">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="cardName">Card Type</label>
+                        <select class="form-control" id="cardName" name="cardName">
+                            <option value="Visa">Visa</option>
+                            <option value="Mastercard">Mastercard</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="amount">Amount</label>
+                        <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter Amount">
+                    </div>
+                    <!-- Add more form fields as needed -->
+                    <button type="submit" class="btn btn-primary btn-submit">Pay to Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("paymentForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+        // You can add form validation here if needed
+        // For simplicity, assuming form is always valid
+        alert("Your Registration has been successful");
+        // Redirect to the register page with the service ID
+        var serviceId = 1; // Replace 1 with the actual service ID
+        window.location.href = "/register/" + serviceId + "/";
+    });
+</script>
+
+</body>
+</html>
